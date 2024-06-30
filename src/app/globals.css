@@ -1,3 +1,99 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply overflow-hidden bg-white;
+  }
+  .h1 {
+    @apply text-[54px] lg:text-[108px] font-bold capitalize leading-[120%] tracking-[-0.05em] mb-2;
+  }
+  .section {
+    @apply h-screen w-screen pt-[80px] lg:pt-[120px];
+  }
+  .btn {
+    @apply py-[18px] px-[50px] h-[66px] flex items-center justify-center text-base uppercase font-semibold bg-primary text-white;
+  }
+}
+
+.bg-home::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  opacity: 0.4;
+  z-index: -1;
+}
+
+.homeText {
+  display: block;
+  width: fit-content;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  white-space: nowrap;
+  position: relative;
+  margin-bottom: 10px;
+  color: transparent;
+  animation: text_reveal 0.5s ease forwards;
+  animation-delay: 1ss;
+}
+
+.homeText:nth-child(1) {
+  animation-delay: 1s;
+}
+
+.homeText:nth-child(2) {
+  animation-delay: 2s;
+}
+
+.homeText:nth-child(3) {
+  animation-delay: 3s;
+}
+
+.homeText span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: #76a5d4;
+  animation: text_reveal_box 1s ease;
+  animation-delay: 0.5s;
+}
+
+.homeText:nth-child(1) span {
+  animation-delay: 0.5s;
+}
+
+.homeText:nth-child(2) span {
+  animation-delay: 1.5s;
+}
+
+.homeText:nth-child(3) span {
+  animation-delay: 2.5s;
+}
+
+@keyframes text_reveal_box {
+  50% {
+    width: 100%;
+    left: 0;
+  }
+  100% {
+    width: 0;
+    left: 100%;
+  }
+}
+
+@keyframes text_reveal {
+  100% {
+    color: white;
+  }
+}
+
+.portfolioWrap:hover .portfolioInfo {
+  transform: scale(1);
+}
