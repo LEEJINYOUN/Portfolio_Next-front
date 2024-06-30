@@ -1,12 +1,19 @@
 import React from "react";
 
-export default function XMark() {
+interface Props {
+  className: string;
+  onClick?: () => void;
+}
+
+export default function XMark({ className, onClick }: Props) {
   return (
     <svg
-      clip-rule="evenodd"
-      fill-rule="evenodd"
-      stroke-linejoin="round"
-      stroke-miterlimit="2"
+      className={className}
+      onClick={onClick}
+      clipRule="evenodd"
+      fillRule="evenodd"
+      strokeLinejoin="round"
+      strokeMiterlimit="2"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
     >

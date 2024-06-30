@@ -17,6 +17,11 @@
   }
 }
 
+.click:hover {
+  fill: red;
+  transition: all 0.3s;
+}
+
 .bg-home::after {
   content: "";
   position: absolute;
