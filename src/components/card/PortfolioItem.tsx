@@ -1,5 +1,7 @@
 import React from "react";
+import Image from "next/image";
 import BlackButton from "../button/BlackButton";
+import Link from "../icon/Link";
 
 export default function PortfolioItem() {
   const portfolioList = [
@@ -101,17 +103,24 @@ export default function PortfolioItem() {
           key={key}
         >
           <div className="portfolioWrap w-full h-full">
-            <img src="" alt="" className="w-full h-full rounded-lg" />
+            {/* <Image
+              src={item.url}
+              alt={item.title}
+              fill={true}
+              className="w-full h-full rounded-lg"
+            /> */}
             <div className="portfolioInfo absolute top-0 left-0 w-full h-full flex items-center justify-center flex-col gap-y-4 bg-[#ffffff86] scale-[0.001] duration-500 text-[#333]">
               <h4 className="text-[24px] text-[#333] font-semibold">
                 {item.title}
               </h4>
               <p className="font-normal">{item.category}</p>
-              <div>
-                <a href="" target="_blank">
-                  아이콘
-                </a>
-              </div>
+              {item.page != "-" && (
+                <div>
+                  <a href={item.page} target="_blank">
+                    {/* <Link /> */}
+                  </a>
+                </div>
+              )}
               <BlackButton>자세히</BlackButton>
             </div>
           </div>

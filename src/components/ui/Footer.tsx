@@ -12,7 +12,7 @@ export default function Footer() {
             className="text-gray-400 hover:text-gray-500 hover:scale-125 duration-200"
           >
             <span className="sr-only">GitHub</span>
-            <Github class="w-10 h-10" />
+            {/* <Github class="w-10 h-10" /> */}
           </a>
         </div>
         <p className="mt-8 text-base leading-6 text-center text-gray-400">

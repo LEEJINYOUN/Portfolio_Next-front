@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function SkillsItem({ list }: any[]) {
+export default function SkillsItem({ list }: any) {
   return (
     <div>
       {list.map((skill: any, key: number) => (
