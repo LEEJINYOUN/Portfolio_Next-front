@@ -1,4 +1,4 @@
-import Link from "next/link";
+import NavbarLink from "@/components/link/NavbarLink";
 
 export default function Home() {
   return (
@@ -15,12 +15,14 @@ export default function Home() {
             <h1 className="homeText text-[32px] md:text-[40px]">
               이진영입니다. <span></span>
             </h1>
-            <Link
-              href="/resume"
-              className="bg-slate-500/80 hover:bg-slate-600 text-white duration-150 mt-[30px] p-5 inline-block items-center w-auto text-xl rounded-md"
+            <NavbarLink
+              href={"/resume"}
+              className={
+                "bg-slate-500/80 hover:bg-slate-600 text-white duration-150 mt-[30px] p-5 inline-block items-center w-auto text-xl rounded-md"
+              }
             >
               더 알아보기 <span></span>
-            </Link>
+            </NavbarLink>
           </div>
         </div>
       </div>
