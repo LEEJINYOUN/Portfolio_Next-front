@@ -2,18 +2,19 @@ import React from "react";
 import Image from "next/image";
 import BlackButton from "../button/BlackButton";
 import { PORTFOLIO_LIST } from "@/constants/portfolio/Portfolio";
+import { PortfolioModel } from "@/model/portfolio";
 
 export default function PortfolioItem() {
   return (
-    <div>
-      {PORTFOLIO_LIST.map((item: any, key: number) => (
+    <>
+      {PORTFOLIO_LIST.map((item: PortfolioModel, key: number) => (
         <div
           className="relative overflow-hidden z-10 h-[250px] rounded-lg"
           key={key}
         >
           <div className="portfolioWrap w-full h-full">
             <Image
-              src={item.url}
+              src={process.env.NEXT_PUBLIC_SIRV_URL + item.url}
               alt={item.title}
               width={50}
               height={50}
@@ -36,6 +37,6 @@ export default function PortfolioItem() {
           </div>
         </div>
       ))}
-    </div>
+    </>
   );
 }
