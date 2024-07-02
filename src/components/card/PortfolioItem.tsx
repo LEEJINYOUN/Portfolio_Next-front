@@ -16,9 +16,10 @@ export default function PortfolioItem() {
             <Image
               src={process.env.NEXT_PUBLIC_SIRV_URL + item.url}
               alt={item.title}
-              width={50}
-              height={50}
-              style={{ width: 50, height: 50 }}
+              width={350}
+              height={250}
+              style={{ width: 100 + `%`, height: 250 }}
+              className="w-auto"
             />
             <div className="portfolioInfo absolute top-0 left-0 w-full h-full flex items-center justify-center flex-col gap-y-4 bg-[#ffffff86] scale-[0.001] duration-500 text-[#333]">
               <h4 className="text-[24px] text-[#333] font-semibold">
