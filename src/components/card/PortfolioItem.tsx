@@ -1,10 +1,18 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Image from "next/image";
 import BlackButton from "../button/BlackButton";
 import { PORTFOLIO_LIST } from "@/constants/portfolio/Portfolio";
 import { PortfolioModel } from "@/model/portfolio";
+import More from "../modal/portfolio/More";
+import Link from "../icon/Link";
 
 export default function PortfolioItem() {
+  const [isModal, setIsModal] = useState(false);
+  const modalToggle = () => {
+    setIsModal(true);
+    console.log(isModal);
+  };
   return (
     <>
       {PORTFOLIO_LIST.map((item: PortfolioModel, key: number) => (
@@ -29,13 +37,14 @@ export default function PortfolioItem() {
               {item.page != "-" && (
                 <div>
                   <a href={item.page} target="_blank">
-                    {/* <Link /> */}
+                    <Link className="text-[10px] w-[25px] h-[25px] text-[#333] hover:text-sky-400" />
                   </a>
                 </div>
               )}
-              <BlackButton>자세히</BlackButton>
+              <BlackButton onClick={modalToggle}>자세히</BlackButton>
             </div>
           </div>
+          {isModal == true ?? <More portfolio={item} />}
         </div>
       ))}
     </>

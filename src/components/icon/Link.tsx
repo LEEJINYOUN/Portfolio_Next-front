@@ -1,8 +1,15 @@
 import React from "react";
 
-export default function Link() {
+interface Props {
+  className: string;
+  onClick?: () => void;
+}
+
+export default function Link({ className, onClick }: Props) {
   return (
     <svg
+      className={className}
+      onClick={onClick}
       width="24"
       height="24"
       xmlns="http://www.w3.org/2000/svg"
