@@ -13,6 +13,10 @@ export default function PortfolioItem() {
     setIsModal(true);
     console.log(isModal);
   };
+
+  const closeModal = () => {
+    setIsModal(false);
+  };
   return (
     <>
       {PORTFOLIO_LIST.map((item: PortfolioModel, key: number) => (
@@ -24,10 +28,10 @@ export default function PortfolioItem() {
             <Image
               src={process.env.NEXT_PUBLIC_SIRV_URL + item.url}
               alt={item.title}
-              width={350}
-              height={250}
-              style={{ width: 100 + `%`, height: 250 }}
-              className="w-auto"
+              width={0}
+              height={0}
+              sizes="100vw"
+              style={{ width: "100%", height: 250 }}
             />
             <div className="portfolioInfo absolute top-0 left-0 w-full h-full flex items-center justify-center flex-col gap-y-4 bg-[#ffffff86] scale-[0.001] duration-500 text-[#333]">
               <h4 className="text-[24px] text-[#333] font-semibold">
@@ -44,7 +48,7 @@ export default function PortfolioItem() {
               <BlackButton onClick={modalToggle}>자세히</BlackButton>
             </div>
           </div>
-          {isModal == true ?? <More portfolio={item} />}
+          {isModal === true ?? <div className="bg-red-500">dadssa</div>}
         </div>
       ))}
     </>
