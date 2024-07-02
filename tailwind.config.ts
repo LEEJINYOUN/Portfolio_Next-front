@@ -14,7 +14,7 @@ const config: Config = {
       xl: "1192px",
     },
     backgroundImage: {
-      home: "url(https://swlsdud1005.sirv.com/portfolio/image/home-bg.jpg)",
+      home: `url(${process.env.NEXT_PUBLIC_SIRV_URL}/image/home-bg.jpg)`,
     },
     extend: {
       colors: {

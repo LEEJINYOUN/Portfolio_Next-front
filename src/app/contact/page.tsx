@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import emailjs from "@emailjs/browser";
 import SectionLayout from "@/components/layout/SectionLayout";
 import ContainerLayout from "@/components/layout/ContainerLayout";
 import SectionTitle from "@/components/text/SectionTitle";
@@ -10,6 +11,11 @@ import BlueButton from "@/components/button/BlueButton";
 import Footer from "@/components/ui/Footer";
 
 export default function ContactPage() {
+  const emailSendService = process.env.NEXT_PUBLIC_EMAIL_SEND_SERVICE as string;
+  const emailSendTemplate = process.env
+    .NEXT_PUBLIC_EMAIL_SEND_TEMPLATE as string;
+  const emailSendPublicKey = process.env.NEXT_PUBLIC_EMAIL_SEND_PUBLIC_KEY;
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -30,6 +36,42 @@ export default function ContactPage() {
   const saveMessage = (event: any) => {
     setMessage(event.target.value);
   };
+
+  const checkEmail = (value: string) => {
+    let regEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+    if (regEmail.test(value) === true) return true;
+    return alert("이메일 형식이 아닙니다. 다시 입력하세요.");
+  };
+
+  const sendEmail = () => {
+    if (checkEmail(email)) {
+      let params = {
+        name,
+        email,
+        phone,
+        message,
+      };
+      if (name != "" && email != "" && phone != "" && message != "") {
+        emailjs
+          .send(emailSendService, emailSendTemplate, params)
+          .then(function () {
+            alert("성공적으로 메세지를 전송했습니다.");
+            setName("");
+            setEmail("");
+            setPhone("");
+            setMessage("");
+          });
+      } else {
+        alert("빈칸이 있습니다. 전부 다 입력하세요.");
+      }
+    }
+  };
+
+  useEffect(() => {
+    emailjs.init({
+      publicKey: emailSendPublicKey,
+    });
+  });
 
   return (
     <SectionLayout>
@@ -77,7 +119,7 @@ export default function ContactPage() {
               isReadOnly={false}
             />
           </div>
-          <BlueButton>보내기</BlueButton>
+          <BlueButton onClick={sendEmail}>보내기</BlueButton>
         </form>
       </ContainerLayout>
       <Footer />

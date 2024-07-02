@@ -17,7 +17,7 @@ export default function SkillsItem({ list }: Props) {
             className="border border-gray-300 shadow-lg rounded-xl m-auto w-full px-4 py-4 flex flex-col gap-2 justify-center items-center"
           >
             <Image
-              src={skill.url}
+              src={process.env.NEXT_PUBLIC_SIRV_URL + skill.url}
               alt={skill.title}
               width={50}
               height={50}
