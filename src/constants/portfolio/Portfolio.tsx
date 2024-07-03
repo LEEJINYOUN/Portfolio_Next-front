@@ -1,17 +1,17 @@
 export const PORTFOLIO_LIST = [
   {
     title: "개인 포트폴리오",
-    date: "2024.05.12 ~ 2024.05.15",
+    date: "2024.06.28 ~ 2024.07.03",
     category: "포트폴리오",
     member: 1,
     tool: "vscode",
-    skill: "nuxt js, typescript",
+    skill: "next js, typescript, tailwind css",
     develop: "vercel",
     work: "기획, 디자인, 사용자 인터페이스 구성 및 개발",
     des: ["포트폴리오 용도로 제작한 사이트"],
     url: "/image/portfolio.png",
-    github: "https://github.com/LEEJINYOUN/portfolio",
-    page: "https://portfolio-h1ai5sg9h-leejinyouns-project.vercel.app/",
+    github: "https://github.com/LEEJINYOUN/Portfolio_Next-front",
+    page: "https://portfolio-next-front.vercel.app/",
   },
   {
     title: "인스펙터",
