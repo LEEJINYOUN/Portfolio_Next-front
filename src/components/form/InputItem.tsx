@@ -1,26 +1,20 @@
+import { InputItemModel } from "@/model/ContactModel";
 import React from "react";
-
-interface GlobalLayoutProps {
-  type: string;
-  id: string;
-  value: string;
-  onChange?: (event: any) => void;
-  isReadOnly: boolean;
-  isDefaultValue?: string;
-}
 
 export default function InputItem({
   type,
   id,
+  name,
   value,
   onChange,
   isReadOnly,
   isDefaultValue,
-}: GlobalLayoutProps) {
+}: InputItemModel) {
   return (
     <input
       type={type}
       id={id}
+      name={name}
       value={value}
       defaultValue={isDefaultValue}
       onChange={onChange}

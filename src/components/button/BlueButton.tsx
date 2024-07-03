@@ -1,10 +1,7 @@
-import React, { ReactNode } from "react";
-interface Props {
-  children: ReactNode;
-  onClick?: () => void;
-}
+import { ButtonModel } from "@/model/ButtonModel";
+import React from "react";
 
-export default function BlueButton({ children, onClick }: Props) {
+export default function BlueButton({ children, onClick }: ButtonModel) {
   return (
     <button
       type="button"

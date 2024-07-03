@@ -1,19 +1,13 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import Link from "next/link";
-
-interface Props {
-  href: string;
-  className?: string;
-  onClick?: () => void;
-  children: ReactNode;
-}
+import { NavbarLinkModel } from "@/model/NavbarModel";
 
 export default function NavbarLink({
   href,
   className,
   onClick,
   children,
-}: Props) {
+}: NavbarLinkModel) {
   return (
     <Link href={href} className={className} onClick={onClick}>
       {children}

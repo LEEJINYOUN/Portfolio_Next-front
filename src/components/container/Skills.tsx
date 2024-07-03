@@ -7,6 +7,7 @@ import {
   FRONT_SKILL_LIST,
 } from "@/constants/resume/Skills";
 import { TAB_LIST } from "@/constants/resume/Tab";
+import { TabMenuModel } from "@/model/SkillModel";
 
 export default function Skills() {
   const [tabs, setTabs] = useState(0);
@@ -26,7 +27,7 @@ export default function Skills() {
             data-tabs="tabs"
             role="list"
           >
-            {TAB_LIST.map((tab: any, key: number) => (
+            {TAB_LIST.map((tab: TabMenuModel, key: number) => (
               <div
                 key={key}
                 title={`${tab.title}`}

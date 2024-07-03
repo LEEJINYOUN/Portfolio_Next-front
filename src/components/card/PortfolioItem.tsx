@@ -1,25 +1,25 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import BlackButton from "../button/BlackButton";
 import { PORTFOLIO_LIST } from "@/constants/portfolio/Portfolio";
-import { PortfolioModel } from "@/model/portfolio";
 import More from "../modal/portfolio/More";
 import Link from "../icon/Link";
+import { PortfolioMenuModel } from "@/model/PortfolioModel";
 
 export default function PortfolioItem() {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [moreItem, setMoreItem] = useState<any>();
-  const handleOpen = (item: PortfolioModel) => {
+  const modalOpen = (item: PortfolioMenuModel) => {
     setMoreItem(item);
-    setModalOpen(true);
+    setIsModalOpen(true);
   };
 
-  const handleClose = () => setModalOpen(false);
+  const modalClose = () => setIsModalOpen(false);
 
   return (
     <>
-      {PORTFOLIO_LIST.map((item: PortfolioModel, key: number) => (
+      {PORTFOLIO_LIST.map((item: PortfolioMenuModel, key: number) => (
         <div
           className="relative overflow-hidden z-10 h-[250px] rounded-lg"
           key={key}
@@ -45,7 +45,7 @@ export default function PortfolioItem() {
                   </a>
                 </div>
               )}
-              <BlackButton onClick={() => handleOpen(item)}>자세히</BlackButton>
+              <BlackButton onClick={() => modalOpen(item)}>자세히</BlackButton>
             </div>
           </div>
         </div>
@@ -53,8 +53,8 @@ export default function PortfolioItem() {
       {moreItem !== undefined && (
         <More
           portfolio={moreItem}
-          modalOpen={modalOpen}
-          handleClose={handleClose}
+          modalOpen={isModalOpen}
+          modalClose={modalClose}
         />
       )}
     </>

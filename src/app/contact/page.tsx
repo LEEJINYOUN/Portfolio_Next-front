@@ -9,57 +9,55 @@ import InputItem from "@/components/form/InputItem";
 import TextareaItem from "@/components/form/TextareaItem";
 import BlueButton from "@/components/button/BlueButton";
 import Footer from "@/components/ui/Footer";
+import {
+  EMAIL_SEND_PUBLIC_KEY,
+  EMAIL_SEND_SERVICE,
+  EMAIL_SEND_TEMPLATE,
+} from "@/constants/contact/EmailKey";
 
 export default function ContactPage() {
-  const emailSendService = process.env.NEXT_PUBLIC_EMAIL_SEND_SERVICE as string;
-  const emailSendTemplate = process.env
-    .NEXT_PUBLIC_EMAIL_SEND_TEMPLATE as string;
-  const emailSendPublicKey = process.env.NEXT_PUBLIC_EMAIL_SEND_PUBLIC_KEY;
+  const [inputData, setInputData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [message, setMessage] = useState("");
-
-  const saveName = (event: any) => {
-    setName(event.target.value);
-  };
-
-  const saveEmail = (event: any) => {
-    setEmail(event.target.value);
-  };
-
-  const savePhone = (event: any) => {
-    setPhone(event.target.value);
-  };
-
-  const saveMessage = (event: any) => {
-    setMessage(event.target.value);
+  const onChange = (e: any) => {
+    const { value, name } = e.target;
+    setInputData({ ...inputData, [name]: value });
   };
 
   const checkEmail = (value: string) => {
-    let regEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+    const regEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
     if (regEmail.test(value) === true) return true;
     return alert("이메일 형식이 아닙니다. 다시 입력하세요.");
   };
 
   const sendEmail = () => {
-    if (checkEmail(email)) {
-      let params = {
-        name,
-        email,
-        phone,
-        message,
+    if (checkEmail(inputData.email)) {
+      const params = {
+        name: inputData.name,
+        email: inputData.email,
+        phone: inputData.phone,
+        message: inputData.message,
       };
-      if (name != "" && email != "" && phone != "" && message != "") {
+      if (
+        inputData.name != "" &&
+        inputData.email != "" &&
+        inputData.phone != "" &&
+        inputData.message != ""
+      ) {
         emailjs
-          .send(emailSendService, emailSendTemplate, params)
+          .send(EMAIL_SEND_SERVICE, EMAIL_SEND_TEMPLATE, params)
           .then(function () {
             alert("성공적으로 메세지를 전송했습니다.");
-            setName("");
-            setEmail("");
-            setPhone("");
-            setMessage("");
+            setInputData({
+              name: "",
+              email: "",
+              phone: "",
+              message: "",
+            });
           });
       } else {
         alert("빈칸이 있습니다. 전부 다 입력하세요.");
@@ -69,7 +67,7 @@ export default function ContactPage() {
 
   useEffect(() => {
     emailjs.init({
-      publicKey: emailSendPublicKey,
+      publicKey: EMAIL_SEND_PUBLIC_KEY,
     });
   });
 
@@ -84,8 +82,9 @@ export default function ContactPage() {
               <InputItem
                 type="text"
                 id="name"
-                value={name}
-                onChange={saveName}
+                name="name"
+                value={inputData.name}
+                onChange={onChange}
                 isReadOnly={false}
               />
             </div>
@@ -94,8 +93,9 @@ export default function ContactPage() {
               <InputItem
                 type="email"
                 id="email"
-                value={email}
-                onChange={saveEmail}
+                name="email"
+                value={inputData.email}
+                onChange={onChange}
                 isReadOnly={false}
               />
             </div>
@@ -104,8 +104,9 @@ export default function ContactPage() {
               <InputItem
                 type="text"
                 id="phone"
-                value={phone}
-                onChange={savePhone}
+                name="phone"
+                value={inputData.phone}
+                onChange={onChange}
                 isReadOnly={false}
               />
             </div>
@@ -114,8 +115,9 @@ export default function ContactPage() {
             <InputLabel isFor="message" title="메세지" />
             <TextareaItem
               id="message"
-              value={message}
-              onChange={saveMessage}
+              name="message"
+              value={inputData.message}
+              onChange={onChange}
               isReadOnly={false}
             />
           </div>

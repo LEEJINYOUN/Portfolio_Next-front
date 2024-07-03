@@ -4,16 +4,14 @@ import React, { useState } from "react";
 import MobileNavbar from "./MobileNavbar";
 import { NAVBAR_MENU } from "@/constants/navbar/Menu";
 import NavbarLink from "../link/NavbarLink";
+import { NavbarMenuModel } from "@/model/NavbarModel";
 
 export default function Navbar() {
   const pathname = usePathname();
-
   const [isToggle, setIsToggle] = useState(false);
-
   const openToggle = () => {
     setIsToggle(true);
   };
-
   const closeToggle = () => {
     setIsToggle(false);
   };
@@ -29,7 +27,7 @@ export default function Navbar() {
           jin young
         </NavbarLink>
         <nav className="hidden xl:flex gap-x-12 font-semibold text-xl whitespace-nowrap">
-          {NAVBAR_MENU.map((menu: any, key: number) => (
+          {NAVBAR_MENU.map((menu: NavbarMenuModel, key: number) => (
             <NavbarLink
               key={key}
               href={menu.link}

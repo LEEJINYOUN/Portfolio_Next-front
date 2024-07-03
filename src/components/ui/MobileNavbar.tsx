@@ -1,23 +1,16 @@
-import Link from "next/link";
 import React from "react";
 import Hamburger from "../icon/Hamburger";
 import XMark from "../icon/XMark";
 import { NAVBAR_MENU } from "@/constants/navbar/Menu";
 import NavbarLink from "../link/NavbarLink";
-
-interface Props {
-  isToggle: boolean;
-  openToggle: () => void;
-  closeToggle: () => void;
-  pathname: string;
-}
+import { MobileNavbarLinkModel, NavbarMenuModel } from "@/model/NavbarModel";
 
 export default function MobileNavbar({
   isToggle,
   openToggle,
   closeToggle,
   pathname,
-}: Props) {
+}: MobileNavbarLinkModel) {
   return (
     <nav className="xl:hidden whitespace-nowrap">
       <div className="text-3xl cursor-pointer">
@@ -32,7 +25,7 @@ export default function MobileNavbar({
           <XMark className={"click w-10 h-10 "} onClick={closeToggle} />
         </div>
         <ul className="h-full flex flex-col justify-center items-center gap-y-8 text-primary font-primary font-bold text-3xl">
-          {NAVBAR_MENU.map((menu: any, key: number) => (
+          {NAVBAR_MENU.map((menu: NavbarMenuModel, key: number) => (
             <li key={key}>
               <NavbarLink
                 href={menu.link}

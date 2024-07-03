@@ -1,11 +1,7 @@
+import { IconModel } from "@/model/IconModel";
 import React from "react";
 
-interface Props {
-  className: string;
-  onClick?: () => void;
-}
-
-export default function XMark({ className, onClick }: Props) {
+export default function XMark({ className, onClick }: IconModel) {
   return (
     <svg
       className={className}
