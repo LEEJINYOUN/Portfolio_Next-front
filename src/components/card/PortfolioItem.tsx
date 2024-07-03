@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import BlackButton from "../button/BlackButton";
 import { PORTFOLIO_LIST } from "@/constants/portfolio/Portfolio";
@@ -8,15 +8,15 @@ import More from "../modal/portfolio/More";
 import Link from "../icon/Link";
 
 export default function PortfolioItem() {
-  const [isModal, setIsModal] = useState(false);
-  const modalToggle = () => {
-    setIsModal(true);
-    console.log(isModal);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [moreItem, setMoreItem] = useState<any>();
+  const handleOpen = (item: PortfolioModel) => {
+    setMoreItem(item);
+    setModalOpen(true);
   };
 
-  const closeModal = () => {
-    setIsModal(false);
-  };
+  const handleClose = () => setModalOpen(false);
+
   return (
     <>
       {PORTFOLIO_LIST.map((item: PortfolioModel, key: number) => (
@@ -45,12 +45,18 @@ export default function PortfolioItem() {
                   </a>
                 </div>
               )}
-              <BlackButton onClick={modalToggle}>자세히</BlackButton>
+              <BlackButton onClick={() => handleOpen(item)}>자세히</BlackButton>
             </div>
           </div>
-          {isModal === true ?? <div className="bg-red-500">dadssa</div>}
         </div>
       ))}
+      {moreItem !== undefined && (
+        <More
+          portfolio={moreItem}
+          modalOpen={modalOpen}
+          handleClose={handleClose}
+        />
+      )}
     </>
   );
 }
