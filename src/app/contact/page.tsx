@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import emailjs from "@emailjs/browser";
 import SectionLayout from "@/components/layout/SectionLayout";
 import ContainerLayout from "@/components/layout/ContainerLayout";
 import SectionTitle from "@/components/text/SectionTitle";
@@ -8,28 +9,67 @@ import InputItem from "@/components/form/InputItem";
 import TextareaItem from "@/components/form/TextareaItem";
 import BlueButton from "@/components/button/BlueButton";
 import Footer from "@/components/ui/Footer";
+import {
+  EMAIL_SEND_PUBLIC_KEY,
+  EMAIL_SEND_SERVICE,
+  EMAIL_SEND_TEMPLATE,
+} from "@/constants/contact/EmailKey";
 
 export default function ContactPage() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [message, setMessage] = useState("");
+  const [inputData, setInputData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
 
-  const saveName = (event: any) => {
-    setName(event.target.value);
+  const onChange = (e: any) => {
+    const { value, name } = e.target;
+    setInputData({ ...inputData, [name]: value });
   };
 
-  const saveEmail = (event: any) => {
-    setEmail(event.target.value);
+  const checkEmail = (value: string) => {
+    const regEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+    if (regEmail.test(value) === true) return true;
+    return alert("이메일 형식이 아닙니다. 다시 입력하세요.");
   };
 
-  const savePhone = (event: any) => {
-    setPhone(event.target.value);
+  const sendEmail = () => {
+    if (checkEmail(inputData.email)) {
+      const params = {
+        name: inputData.name,
+        email: inputData.email,
+        phone: inputData.phone,
+        message: inputData.message,
+      };
+      if (
+        inputData.name != "" &&
+        inputData.email != "" &&
+        inputData.phone != "" &&
+        inputData.message != ""
+      ) {
+        emailjs
+          .send(EMAIL_SEND_SERVICE, EMAIL_SEND_TEMPLATE, params)
+          .then(function () {
+            alert("성공적으로 메세지를 전송했습니다.");
+            setInputData({
+              name: "",
+              email: "",
+              phone: "",
+              message: "",
+            });
+          });
+      } else {
+        alert("빈칸이 있습니다. 전부 다 입력하세요.");
+      }
+    }
   };
 
-  const saveMessage = (event: any) => {
-    setMessage(event.target.value);
-  };
+  useEffect(() => {
+    emailjs.init({
+      publicKey: EMAIL_SEND_PUBLIC_KEY,
+    });
+  });
 
   return (
     <SectionLayout>
@@ -42,8 +82,9 @@ export default function ContactPage() {
               <InputItem
                 type="text"
                 id="name"
-                value={name}
-                onChange={saveName}
+                name="name"
+                value={inputData.name}
+                onChange={onChange}
                 isReadOnly={false}
               />
             </div>
@@ -52,8 +93,9 @@ export default function ContactPage() {
               <InputItem
                 type="email"
                 id="email"
-                value={email}
-                onChange={saveEmail}
+                name="email"
+                value={inputData.email}
+                onChange={onChange}
                 isReadOnly={false}
               />
             </div>
@@ -62,8 +104,9 @@ export default function ContactPage() {
               <InputItem
                 type="text"
                 id="phone"
-                value={phone}
-                onChange={savePhone}
+                name="phone"
+                value={inputData.phone}
+                onChange={onChange}
                 isReadOnly={false}
               />
             </div>
@@ -72,12 +115,13 @@ export default function ContactPage() {
             <InputLabel isFor="message" title="메세지" />
             <TextareaItem
               id="message"
-              value={message}
-              onChange={saveMessage}
+              name="message"
+              value={inputData.message}
+              onChange={onChange}
               isReadOnly={false}
             />
           </div>
-          <BlueButton>보내기</BlueButton>
+          <BlueButton onClick={sendEmail}>보내기</BlueButton>
         </form>
       </ContainerLayout>
       <Footer />

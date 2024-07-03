@@ -1,11 +1,7 @@
+import { InputLabelModel } from "@/model/ContactModel";
 import React from "react";
 
-interface GlobalLayoutProps {
-  isFor: string;
-  title: string;
-}
-
-export default function InputLabel({ isFor, title }: GlobalLayoutProps) {
+export default function InputLabel({ isFor, title }: InputLabelModel) {
   return (
     <label
       htmlFor={isFor}

@@ -1,23 +1,18 @@
+import { TextareaItemModel } from "@/model/ContactModel";
 import React from "react";
-
-interface GlobalLayoutProps {
-  id: string;
-  value: string;
-  onChange?: (event: any) => void;
-  isReadOnly: boolean;
-  isDefaultValue?: string;
-}
 
 export default function TextareaItem({
   id,
+  name,
   value,
   onChange,
   isReadOnly,
   isDefaultValue,
-}: GlobalLayoutProps) {
+}: TextareaItemModel) {
   return (
     <textarea
       id={id}
+      name={name}
       value={value}
       defaultValue={isDefaultValue}
       onChange={onChange}
