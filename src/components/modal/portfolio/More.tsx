@@ -13,11 +13,9 @@ export default function More({ portfolio, modalOpen, modalClose }: MoreModel) {
   const [getData, setGetData] = useState<any | undefined>();
 
   const getApiData = async () => {
-    let portfolioId = portfolio.id;
+    const portfolioId = portfolio.id;
     try {
-      const result = await axios.get("/api/portfolioDetail", {
-        params: { portfolioId: JSON.stringify(portfolioId) },
-      });
+      const result = await axios.get(`/api/portfolio/${portfolioId}/des`);
       setGetData(result.data.results);
     } catch (e) {
       console.log(e);
@@ -26,8 +24,7 @@ export default function More({ portfolio, modalOpen, modalClose }: MoreModel) {
 
   useEffect(() => {
     getApiData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getData]);
+  }, [modalOpen]);
 
   return (
     <Modal
