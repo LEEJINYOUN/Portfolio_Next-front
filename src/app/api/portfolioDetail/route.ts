@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export const GET = async (params: any) => {
   try {
-    // 포트폴리오 번호
+    // 해당 포트폴리오 id
     const portfolioId = params.url.substring(54);
 
     // 외부 API로 통신
