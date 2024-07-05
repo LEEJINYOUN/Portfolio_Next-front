@@ -16,7 +16,7 @@ export default function More({ portfolio, modalOpen, modalClose }: MoreModel) {
     let portfolioId = portfolio.id;
     try {
       const result = await axios.get("/api/portfolioDetail", {
-        params: { portfolioId },
+        params: { portfolioId: JSON.stringify(portfolioId) },
       });
       setGetData(result.data.results);
     } catch (e) {
@@ -26,6 +26,7 @@ export default function More({ portfolio, modalOpen, modalClose }: MoreModel) {
 
   useEffect(() => {
     getApiData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getData]);
 
   return (
