@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 
 export interface PortfolioMenuModel {
+  id: number;
   title: string;
   date: string;
   category: string;

@@ -1,22 +1,45 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SkillsItem from "../card/SkillsItem";
-import {
-  BACK_SKILL_LIST,
-  ETC_SKILL_LIST,
-  FRONT_SKILL_LIST,
-} from "@/constants/resume/Skills";
 import { TAB_LIST } from "@/constants/resume/Tab";
 import { TabMenuModel } from "@/model/SkillModel";
+import axios from "axios";
 
 export default function Skills() {
   const [tabs, setTabs] = useState(0);
+
+  const [frontData, setFrontData] = useState<any[]>([]);
+  const [backData, setBackData] = useState<any[]>([]);
+  const [etcData, setEtcData] = useState<any[]>([]);
 
   const changeTab = (tabNum: number) => {
     if (tabNum == 0) return setTabs(0);
     else if (tabNum == 1) return setTabs(1);
     else if (tabNum == 2) return setTabs(2);
   };
+
+  const getApiData = async () => {
+    try {
+      const result = await axios.get("/api/skill");
+      const getData = result.data.results;
+
+      getData.map((item: any) => {
+        if (item.category == "front") {
+          setFrontData((frontData) => [...frontData, item]);
+        } else if (item.category == "back") {
+          setBackData((backData) => [...backData, item]);
+        } else if (item.category == "etc") {
+          setEtcData((etcData) => [...etcData, item]);
+        }
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    getApiData();
+  }, []);
 
   return (
     <div className="w-full max-w-3xl mx-auto">
@@ -46,11 +69,11 @@ export default function Skills() {
           </ul>
           <div className="p-5">
             {tabs == 0 ? (
-              <SkillsItem list={FRONT_SKILL_LIST} />
+              <SkillsItem list={frontData} />
             ) : tabs == 1 ? (
-              <SkillsItem list={BACK_SKILL_LIST} />
+              <SkillsItem list={backData} />
             ) : (
-              <SkillsItem list={ETC_SKILL_LIST} />
+              <SkillsItem list={etcData} />
             )}
           </div>
         </div>

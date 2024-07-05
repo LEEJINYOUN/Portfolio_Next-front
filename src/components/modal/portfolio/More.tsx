@@ -1,13 +1,31 @@
+"use client";
 import Github from "@/components/icon/Github";
 import Link from "@/components/icon/Link";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
 import BlackButton from "@/components/button/BlackButton";
 import MoreTitle from "@/components/text/MoreTitle";
 import { MoreModel } from "@/model/PortfolioModel";
+import axios from "axios";
 
 export default function More({ portfolio, modalOpen, modalClose }: MoreModel) {
+  const [getData, setGetData] = useState<any | undefined>();
+
+  const getApiData = async () => {
+    const portfolioId = portfolio.id;
+    try {
+      const result = await axios.get(`/api/portfolio/${portfolioId}/des`);
+      setGetData(result.data.results);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    getApiData();
+  }, [modalOpen]);
+
   return (
     <Modal
       open={modalOpen}
@@ -51,11 +69,12 @@ export default function More({ portfolio, modalOpen, modalClose }: MoreModel) {
                 <MoreTitle>{portfolio.skill.toUpperCase()}</MoreTitle>
                 <MoreTitle>{portfolio.develop.toUpperCase()}</MoreTitle>
                 <MoreTitle>{portfolio.work}</MoreTitle>
-                {portfolio.des.map((item: string, key: number) => (
-                  <MoreTitle key={key}>
-                    {key + 1}. {item}
-                  </MoreTitle>
-                ))}
+                {getData !== undefined &&
+                  getData.map((item: any, key: number) => (
+                    <MoreTitle key={key}>
+                      {key + 1}. {item.des}
+                    </MoreTitle>
+                  ))}
               </div>
             </div>
             <div className="flex justify-center items-center w-full h-[10%] text-[20px]">
