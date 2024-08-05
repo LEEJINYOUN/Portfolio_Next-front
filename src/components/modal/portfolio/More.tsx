@@ -12,18 +12,18 @@ import axios from "axios";
 export default function More({ portfolio, modalOpen, modalClose }: MoreModel) {
   const [getData, setGetData] = useState<any | undefined>();
 
-  const getApiData = async () => {
-    const portfolioId = portfolio.id;
-    try {
-      const result = await axios.get(`/api/portfolio/${portfolioId}/des`);
-      setGetData(result.data.results);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // const getApiData = async () => {
+  //   const portfolioId = portfolio.id;
+  //   try {
+  //     const result = await axios.get(`/api/portfolio/${portfolioId}/des`);
+  //     setGetData(result.data.results);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
   useEffect(() => {
-    getApiData();
+    // getApiData();
   }, [modalOpen]);
 
   return (
@@ -69,10 +69,10 @@ export default function More({ portfolio, modalOpen, modalClose }: MoreModel) {
                 <MoreTitle>{portfolio.skill.toUpperCase()}</MoreTitle>
                 <MoreTitle>{portfolio.develop.toUpperCase()}</MoreTitle>
                 <MoreTitle>{portfolio.work}</MoreTitle>
-                {getData !== undefined &&
-                  getData.map((item: any, key: number) => (
+                {portfolio !== undefined &&
+                  portfolio.des.map((item: any, key: number) => (
                     <MoreTitle key={key}>
-                      {key + 1}. {item.des}
+                      {key + 1}. {item}
                     </MoreTitle>
                   ))}
               </div>

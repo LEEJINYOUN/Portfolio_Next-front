@@ -3,20 +3,22 @@ import React, { useEffect, useState } from "react";
 import TimelineItem from "../card/TimelineItem";
 import { TimelineMenuModel } from "@/model/TimelineModel";
 import axios from "axios";
+import { TIMELINE_LIST } from "@/constants/data/Timeline";
 
 export default function Timeline() {
   const [getData, setGetData] = useState<any | undefined>();
-  const getApiData = async () => {
-    try {
-      const result = await axios.get("/api/timeline");
-      setGetData(result.data.results);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // const getApiData = async () => {
+  //   try {
+  //     const result = await axios.get("/api/timeline");
+  //     setGetData(result.data.results);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
   useEffect(() => {
-    getApiData();
+    setGetData(TIMELINE_LIST);
+    // getApiData();
   }, []);
   return (
     <div className="w-full max-w-3xl mx-auto">
