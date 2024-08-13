@@ -21,7 +21,8 @@ export default function Skills() {
   const getApiData = async () => {
     try {
       const result = await axios.get("/api/skill");
-      const getData = result.data.results;
+
+      const getData = result.data.result;
 
       getData.map((item: any) => {
         if (item.category == "front") {

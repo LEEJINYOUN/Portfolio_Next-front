@@ -21,7 +21,8 @@ export default function PortfolioItem() {
   const getApiData = async () => {
     try {
       const result = await axios.get("/api/portfolio");
-      setGetData(result.data.results);
+
+      setGetData(result.data.result);
     } catch (e) {
       console.log(e);
     }

@@ -9,7 +9,8 @@ export default function Timeline() {
   const getApiData = async () => {
     try {
       const result = await axios.get("/api/timeline");
-      setGetData(result.data.results);
+
+      setGetData(result.data.result);
     } catch (e) {
       console.log(e);
     }

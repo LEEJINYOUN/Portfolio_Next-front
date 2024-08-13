@@ -16,7 +16,8 @@ export default function More({ portfolio, modalOpen, modalClose }: MoreModel) {
     const portfolioId = portfolio.id;
     try {
       const result = await axios.get(`/api/portfolio/${portfolioId}/des`);
-      setGetData(result.data.results);
+
+      setGetData(result.data.result);
     } catch (e) {
       console.log(e);
     }
