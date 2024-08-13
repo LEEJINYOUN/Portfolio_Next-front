@@ -10,7 +10,9 @@
 - <h3>Next Js</h3>
 - <h3>Typescript</h3>
 - <h3>Tailwind css</h3>
-- <h3>Emailjs</h3>
+- <h3>Node Js</h3>
+- <h3>My Sql</h3>
+- <h3>Email Js</h3>
   <br/><br/>
 
 <h2> ⚙️ 구현 기능 </h2>

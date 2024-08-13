@@ -6,7 +6,6 @@ import More from "../modal/portfolio/More";
 import Link from "../icon/Link";
 import { PortfolioMenuModel } from "@/model/PortfolioModel";
 import axios from "axios";
-import { PORTFOLIO_LIST } from "@/constants/data/Portfolio";
 
 export default function PortfolioItem() {
   const [getData, setGetData] = useState<any | undefined>();
@@ -19,19 +18,18 @@ export default function PortfolioItem() {
 
   const modalClose = () => setIsModalOpen(false);
 
-  // const getApiData = async () => {
-  //   try {
-  //     const result = await axios.get("/api/portfolio");
-  //     setGetData(result.data.results);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
+  const getApiData = async () => {
+    try {
+      const result = await axios.get("/api/portfolio");
+
+      setGetData(result.data.result);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   useEffect(() => {
-    setGetData(PORTFOLIO_LIST.reverse());
-
-    // getApiData();
+    getApiData();
   }, []);
   return (
     <>

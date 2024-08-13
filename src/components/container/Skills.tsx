@@ -4,11 +4,6 @@ import SkillsItem from "../card/SkillsItem";
 import { TAB_LIST } from "@/constants/resume/Tab";
 import { TabMenuModel } from "@/model/SkillModel";
 import axios from "axios";
-import {
-  SKILL_BACK_LIST,
-  SKILL_ETC_LIST,
-  SKILL_FRONT_LIST,
-} from "@/constants/data/Skill";
 
 export default function Skills() {
   const [tabs, setTabs] = useState(0);
@@ -23,27 +18,28 @@ export default function Skills() {
     else if (tabNum == 2) return setTabs(2);
   };
 
-  // const getApiData = async () => {
-  //   try {
-  //     const result = await axios.get("/api/skill");
-  //     const getData = result.data.results;
+  const getApiData = async () => {
+    try {
+      const result = await axios.get("/api/skill");
 
-  //     getData.map((item: any) => {
-  //       if (item.category == "front") {
-  //         setFrontData((frontData) => [...frontData, item]);
-  //       } else if (item.category == "back") {
-  //         setBackData((backData) => [...backData, item]);
-  //       } else if (item.category == "etc") {
-  //         setEtcData((etcData) => [...etcData, item]);
-  //       }
-  //     });
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
+      const getData = result.data.result;
+
+      getData.map((item: any) => {
+        if (item.category == "front") {
+          setFrontData((frontData) => [...frontData, item]);
+        } else if (item.category == "back") {
+          setBackData((backData) => [...backData, item]);
+        } else if (item.category == "etc") {
+          setEtcData((etcData) => [...etcData, item]);
+        }
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   useEffect(() => {
-    // getApiData();
+    getApiData();
   }, []);
 
   return (
@@ -74,11 +70,11 @@ export default function Skills() {
           </ul>
           <div className="p-5">
             {tabs == 0 ? (
-              <SkillsItem list={SKILL_FRONT_LIST} />
+              <SkillsItem list={frontData} />
             ) : tabs == 1 ? (
-              <SkillsItem list={SKILL_BACK_LIST} />
+              <SkillsItem list={backData} />
             ) : (
-              <SkillsItem list={SKILL_ETC_LIST} />
+              <SkillsItem list={etcData} />
             )}
           </div>
         </div>
